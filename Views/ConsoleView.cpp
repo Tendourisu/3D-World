@@ -1,3 +1,9 @@
+/*******************************************************************************
+【文件名】 ConsoleView.cpp
+【功能模块和目的】 控制台视图类，通过console实现controller与用户的交互
+ Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 #include <iostream>
 #include "ConsoleView.hpp"
 #include "../Controllers/Controller.hpp"
@@ -6,6 +12,15 @@
 #include <iostream>
 #include <limits>
 
+/*******************************************************************************
+【函数名称】 Run
+【函数功能】 运行方法，实现controller与用户的交互
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::Run(Controller& controller) const {
     std::string command;
     std::cout << "welcome to the 3DWorld!"<< std::endl
@@ -67,6 +82,16 @@ void ConsoleView::Run(Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 LoadModel
+【函数功能】 加载模型
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+    - std::string* path（输入参数）：字符串指针，文件路径
+【返回值】 bool ：是否成功加载
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 bool ConsoleView::LoadModel(Controller& controller, std::string* path) const {
     auto result = controller.LoadModel(*path);
     if (result == Controller::Result::R_FILE_EXTENSION_ERROR) {
@@ -93,7 +118,16 @@ bool ConsoleView::LoadModel(Controller& controller, std::string* path) const {
     return true;
 }
 
-
+/*******************************************************************************
+【函数名称】 SaveModel
+【函数功能】 保存模型
+【参数】 
+    - const Controller& controller（输入参数）：Controller对象，控制器
+    - std::string defaultPath（输入参数）：字符串，默认路径
+【返回值】 bool ：是否成功保存
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::SaveModel(const Controller& controller, std::string defaultPath) const {
     std::cout << "(Enter nothing to use default value '" << defaultPath << "')" << std::endl;
     std::cout << "Save to: ";
@@ -116,6 +150,14 @@ void ConsoleView::SaveModel(const Controller& controller, std::string defaultPat
               << fileName << "'." << std::endl;
 }
 
+/*******************************************************************************
+【函数名称】 ShowHelp
+【函数功能】 显示帮助信息
+【参数】 无
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::ShowHelp() const {
     std::cout << "可用命令:\n"
               << "  save                - Save the model\n"
@@ -134,6 +176,15 @@ void ConsoleView::ShowHelp() const {
               << "  exit                - exit the program\n";
 }
 
+/*******************************************************************************
+【函数名称】 ShowStatistics
+【函数功能】 显示统计信息
+【参数】 
+    - const Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::ShowStatistics(const Controller& controller) const {
     auto stat = controller.GetStatistics();
     std::cout << "Statistics:\n";
@@ -152,6 +203,15 @@ void ConsoleView::ShowStatistics(const Controller& controller) const {
               << stat.MinBoxVolume << std::endl;
 }
 
+/*******************************************************************************
+【函数名称】 ListFaces
+【函数功能】 列出面
+【参数】 
+    - const Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::ListFaces(const Controller& controller) const {
     const auto& faces = controller.GetFaces();
     for (size_t i = 0; i < faces.size(); i++) {
@@ -162,6 +222,15 @@ void ConsoleView::ListFaces(const Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 ListFace_sPoints
+【函数功能】 列出面的点
+【参数】 
+    - const Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::ListFace_sPoints(const Controller& controller) const {
     std::cout << "Select a face to inspect" << std::endl;
     const auto& faces = controller.GetFaces();
@@ -186,6 +255,15 @@ void ConsoleView::ListFace_sPoints(const Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 AddFace
+【函数功能】 添加面
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::AddFace(Controller& controller) const {
     double x1;
     double y1;
@@ -210,6 +288,15 @@ void ConsoleView::AddFace(Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 RemoveFace
+【函数功能】 移除面
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::RemoveFace(Controller& controller) const {
     std::cout << "Select a face to remove" << std::endl;
     const auto& faces = controller.GetFaces();
@@ -230,6 +317,15 @@ void ConsoleView::RemoveFace(Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 ModifyFace
+【函数功能】 修改面
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::ModifyFace(Controller& controller) const {
     std::cout << "Select a face to modify" << std::endl;
     const auto& faces = controller.GetFaces();
@@ -251,7 +347,6 @@ void ConsoleView::ModifyFace(Controller& controller) const {
     double y;
     double z;
     std::cin >> x >> y >> z;
-
     auto result = controller.ModifyFace(id, pointIndex, x, y, z);
     if (result == Controller::Result::R_ID_OUT_OF_BOUNDS) {
         std::cout << "error: #" << id << " is not a valid face id."<< std::endl;
@@ -264,6 +359,15 @@ void ConsoleView::ModifyFace(Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 ListLines
+【函数功能】 列出线
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::ListLines(const Controller& controller) const {
     const auto& lines = controller.GetLines();
     for (size_t i = 0; i < lines.size(); i++) {
@@ -274,6 +378,15 @@ void ConsoleView::ListLines(const Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 ListLine_sPoints
+【函数功能】 列出线的点
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::ListLine_sPoints(const Controller& controller) const {
     std::cout << "Select a line to inspect" << std::endl;
     const auto& lines = controller.GetLines();
@@ -298,6 +411,15 @@ void ConsoleView::ListLine_sPoints(const Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 AddLine
+【函数功能】 添加线
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::AddLine(Controller& controller) const {
     double x1;
     double y1;
@@ -319,6 +441,15 @@ void ConsoleView::AddLine(Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 RemoveLine
+【函数功能】 移除线
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::RemoveLine(Controller& controller) const {
     std::cout << "Select a line to remove" << std::endl;
     const auto& lines = controller.GetLines();
@@ -339,6 +470,15 @@ void ConsoleView::RemoveLine(Controller& controller) const {
     }
 }
 
+/*******************************************************************************
+【函数名称】 ModifyLine
+【函数功能】 修改线
+【参数】 
+    - Controller& controller（输入参数）：Controller对象，控制器
+【返回值】 无
+Created by 朱昊东 on 2024/7/29
+【更改记录】 无
+*******************************************************************************/
 void ConsoleView::ModifyLine(Controller& controller) const {
     std::cout << "Select a line to modify" << std::endl;
     const auto& lines = controller.GetLines();

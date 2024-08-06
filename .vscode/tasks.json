@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build all cpp files",
+            "type": "shell",
+            "command": "sh",
+            "args": [
+                "-c",
+                "g++ -std=c++17 -g -O0 $(find . -name \"*.cpp\" -print) -o main"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Generated task to compile all cpp files with g++"
+        }
+    ]
+}

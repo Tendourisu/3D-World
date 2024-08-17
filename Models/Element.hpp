@@ -10,6 +10,7 @@ Created by 朱昊东 on 2024/7/24
 #include <memory>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "Point.hpp"
 #include "../Errors.hpp"
 
@@ -45,6 +46,10 @@ Created by 朱昊东 on 2024/7/24
         获取元素的所有点所构成的向量
     - void ChangePoint(std::size_t index, const std::share_ptr<Point<N>>& point)
         更改元素的第 index 个点
+    - static bool IsSameFixedPoints(
+        const std::vector<std::shared_ptr<Point<N>>>& points1, 
+        const std::vector<std::shared_ptr<Point<N>>>& points2)
+        判断两个点数组在固定顺序下是否相同
     - static bool IsSame(const Element<N, P>& e1, const Element<N, P>& e2)
         判断两个元素是否相同
     - bool IsSame(const Element<N, P>& other) const
@@ -274,6 +279,32 @@ class Element {
         }
 
         /***********************************************************************
+        【函数名称】 IsSameFixedPoints
+        【函数功能】 判断两个点数组在固定顺序下是否相同
+        【参数】 
+            - const std::vector<std::shared_ptr<Point<N>>>& points1（输入参数）：
+            第一个点数组
+            - const std::vector<std::shared_ptr<Point<N>>>& points2（输入参数）：
+            第二个点数组
+        【返回值】 bool: 返回布尔值，表示两个点数组在固定顺序下是否相同
+        Created by 朱昊东 on 2024/8/14
+        【更改记录】 无
+        ***********************************************************************/
+        static bool IsSameFixedPoints(const std::vector<std::shared_ptr<Point<N>>>& points1, 
+                                const std::vector<std::shared_ptr<Point<N>>>& points2) {
+            if (points1.size() != points2.size()) {
+                return false;
+            }
+            for (size_t i = 0; i < points1.size(); ++i) {
+                if (!Point<N>::IsSame(*points1[i], *points2[i])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+
+        /***********************************************************************
         【函数名称】 IsSame
         【函数功能】 判断两个 Element 对象是否相同
         【参数】    
@@ -281,15 +312,21 @@ class Element {
             - const Element<N, P>& e2（输入参数）：第二个 Element 对象
         【返回值】 bool: 返回布尔值，表示两个 Element 对象是否相同
         Created by 朱昊东 on 2024/7/24
-        【更改记录】 无
+        【更改记录】 2024/8/14
+            重构了函数，通过遍历第二个Element的所有次序，实现了Set意义下的比较
         ***********************************************************************/
         static bool IsSame(const Element<N, P>& e1, const Element<N, P>& e2) {
-            for (size_t i = 0; i < P; i++) {
-                if (!Point<N>::IsSame(*e1.m_Points[i], *e2.m_Points[i])) {
-                    return false;
+            std::vector<std::shared_ptr<Point<N>>> points = e1.GetPointsVector();
+            std::sort(points.begin(), points.end());//回到最小的字典序
+
+            do {
+                if (IsSameFixedPoints(points, e2.GetPointsVector())) {
+                    return true;
                 }
-            }
-            return true;
+            } while (std::next_permutation(points.begin(), points.end()));
+                //遍历整个字典序
+
+            return false;
         }
 
 
@@ -316,12 +353,11 @@ class Element {
         【更改记录】 无
         ***********************************************************************/
         bool IsSame(const Point<N>* points) const {
+            Element<N, P> tempElement;
             for (int i = 0; i < P; i++) {
-                if (*m_Points[i] != points[i]) {
-                    return false;
-                }
+                tempElement.m_Points[i] = std::make_shared<Point<N>>(points[i]);
             }
-            return true;
+            return IsSame(*this, tempElement);
         }
 
         /***********************************************************************

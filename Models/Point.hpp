@@ -5,7 +5,6 @@ Created by 朱昊东 on 2024/7/23
 【更改记录】 2024/7/26:
     修改static bool IsSame(const Point<N>& p1, const Point<N>& p2)
 *******************************************************************************/
-
 #ifndef POINT_HPP
 #define POINT_HPP
 

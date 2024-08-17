@@ -1,7 +1,7 @@
 /*******************************************************************************
 【文件名】 Controller.cpp
 【功能模块和目的】 实现Controller类，提供对模型的操作
- Created by 朱昊东 on 2024/7/28
+Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
 #include <memory>
@@ -11,6 +11,7 @@
 #include "../Exporter&Importer/ObjExporter.hpp"
 #include "../Exporter&Importer/ObjImporter.hpp"
 #include "../Models/Model.hpp"
+
 /*******************************************************************************
 【函数名称】 GetInstance
 【函数功能】 获取Controller类的单例对象

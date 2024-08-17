@@ -2,9 +2,9 @@
 【文件名】 Errors.hpp
 【功能模块和目的】 定义异常类
  Created by 朱昊东 on 2024/7/24
-【更改记录】 无
+【更改记录】 7/27 增添了文件扩展名异常类、文件打开异常类、文件格式异常类、重复点异常类、重复元素异常类
+            7/28 增添了单例模式异常类
 *******************************************************************************/
-
 #ifndef ERRORS_HPP
 #define ERRORS_HPP
 
@@ -16,6 +16,7 @@
 【接口说明】
     - ExceptionIndexOutOfBounds(std::size_t index)
         构造函数，传入索引
+Created by 朱昊东 on 2024/7/24
 【更改记录】 无
 *******************************************************************************/
 class ExceptionIndexOutOfBounds: public std::invalid_argument {
@@ -33,6 +34,7 @@ class ExceptionIndexOutOfBounds: public std::invalid_argument {
 【接口说明】
     - ExceptionDowngrade()
         构造函数
+Created by 朱昊东 on 2024/7/24
 【更改记录】 无
 *******************************************************************************/
 class ExceptionDowngrade: public std::invalid_argument {
@@ -47,6 +49,7 @@ class ExceptionDowngrade: public std::invalid_argument {
 【接口说明】
     - ExceptionFileExtension()
         构造函数
+Created by 朱昊东 on 2024/7/27
 【更改记录】 无
 *******************************************************************************/
 class ExceptionFileExtension: public std::invalid_argument {
@@ -61,6 +64,7 @@ class ExceptionFileExtension: public std::invalid_argument {
 【接口说明】
     - ExceptionFileOpen()
         构造函数
+Created by 朱昊东 on 2024/7/27
 【更改记录】 无
 *******************************************************************************/
 class ExceptionFileOpen: public std::invalid_argument {
@@ -75,6 +79,7 @@ class ExceptionFileOpen: public std::invalid_argument {
 【接口说明】
     - ExceptionFileFormat()
         构造函数
+Created by 朱昊东 on 2024/7/27
 【更改记录】 无
 *******************************************************************************/
 class ExceptionFileFormat: public std::invalid_argument {
@@ -89,6 +94,7 @@ class ExceptionFileFormat: public std::invalid_argument {
 【接口说明】
     - ExceptionIdenticalPoint()
         构造函数
+Created by 朱昊东 on 2024/7/27
 【更改记录】 无
 *******************************************************************************/
 class ExceptionIdenticalPoint: public std::invalid_argument {
@@ -103,6 +109,7 @@ class ExceptionIdenticalPoint: public std::invalid_argument {
 【接口说明】
     - ExceptionIdenticalElement()
         构造函数
+Created by 朱昊东 on 2024/7/27
 【更改记录】 无
 *******************************************************************************/
 class ExceptionIdenticalElement: public std::invalid_argument {
@@ -117,6 +124,7 @@ class ExceptionIdenticalElement: public std::invalid_argument {
 【接口说明】
     - ExceptionOnlyOneInstance()
         构造函数
+Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
 class ExceptionOnlyOneInstance: public std::invalid_argument {

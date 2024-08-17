@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <limits>
 #include <string>
 #include <vector>
 #include "Face.hpp"
@@ -193,7 +194,7 @@ class Model {
             }// 检查是否有相同的点
             for (auto face: m_Faces) {
                 if (face->IsSame(points)) {
-                    throw ExceptionIdenticalPoint();
+                    throw ExceptionIdenticalElement();
                 }
             }// 检查是否有相同的面
             Face<N> face(std::make_shared<Point<N>>(first),

@@ -2,7 +2,8 @@
 【文件名】 ConsoleView.cpp
 【功能模块和目的】 控制台视图类，通过console实现controller与用户的交互
  Created by 朱昊东 on 2024/7/29
-【更改记录】 无
+【更改记录】 2024/8/15
+    修改了Run方法，使得用户可以在文件加载失败时重新输入文件路径
 *******************************************************************************/
 #include <iostream>
 #include "ConsoleView.hpp"
@@ -19,62 +20,71 @@
     - Controller& controller（输入参数）：Controller对象，控制器
 【返回值】 无
 Created by 朱昊东 on 2024/7/29
-【更改记录】 无
+【更改记录】 2024/8/15
+    修改了Run方法，使得用户可以在文件加载失败时重新输入文件路径
 *******************************************************************************/
 void ConsoleView::Run(Controller& controller) const {
     std::string command;
-    std::cout << "welcome to the 3DWorld!"<< std::endl
-              <<"Please enter your 3D model file with path:";
+    std::cout << "welcome to the 3DWorld!"<< std::endl;
+              
     std::string filePath;
-    std::cin >> filePath;
-    if (!LoadModel(controller, &filePath)) {
-            return ;
+    while (true) {
+        std::cout <<"Please enter your 3D model file with path:";
+        std::cin >> filePath;
+        if (LoadModel(controller, &filePath)) {
+            break;
+        } else {
+            std::cout << "Fail to load the file, please try again" << std::endl;
         }
+    }
 
     while (true) {
         std::cout << "Please enter a command "
                   << "(use 'help' to display available commands): ";
         std::cin >> command;
-        if (command == "save") {
+        if (command == "1") {
             SaveModel(controller, filePath);
             continue;
-        } else if (command == "list_faces") {
+        } else if (command == "2") {
             ListFaces(controller);
             continue;
-        } else if (command == "list_face's_points"){
+        } else if (command == "3"){
             ListFace_sPoints(controller);
             continue;
-        } else if (command == "add_face") {
+        } else if (command == "4") {
             AddFace(controller);
             continue;
-        } else if (command == "remove_face") {
+        } else if (command == "5") {
             RemoveFace(controller);
             continue;
-        } else if (command == "modify_face") {
+        } else if (command == "6") {
             ModifyFace(controller);
             continue;
-        } else if (command == "list_lines") {
+        } else if (command == "7") {
             ListLines(controller);
             continue;
-        } else if (command == "list_line's_points"){
+        } else if (command == "8"){
             ListLine_sPoints(controller);
             continue;
-        } else if (command == "add_line") {
+        } else if (command == "9") {
             AddLine(controller);
             continue;
-        } else if (command == "remove_line") {
+        } else if (command == "10") {
             RemoveLine(controller);
             continue;
-        } else if (command == "modify_line") {
+        } else if (command == "11") {
             ModifyLine(controller);
             continue;
-        } else if (command == "statistics") {
+        } else if (command == "12") {
             ShowStatistics(controller);
+            continue;
+        } else if (command == "13") {
+            ShowHelp();
             continue;
         } else if (command == "help") {
             ShowHelp();
             continue;
-        } else if (command == "exit") {
+        } else if (command == "14") {
             break;
         } else {
             std::cout << "unknown command: " << command << std::endl;
@@ -159,21 +169,22 @@ Created by 朱昊东 on 2024/7/29
 【更改记录】 无
 *******************************************************************************/
 void ConsoleView::ShowHelp() const {
-    std::cout << "可用命令:\n"
-              << "  save                - Save the model\n"
-              << "  list_faces          - List all faces\n"
-              << "  list_face's_points  - List points of the specified face\n"
-              << "  add_face            - Add face\n"
-              << "  remove_face         - Remove face\n"
-              << "  modify_face         - Modify face\n"
-              << "  list_lines          - List all lines\n"
-              << "  list_line's_points  - List points of the specified line\n"
-              << "  add_line            - Add line\n"
-              << "  remove_line         - Removw line\n"
-              << "  modify_line         - Modify line\n"
-              << "  statistics          - Show statistics\n"
-              << "  help                - Show available\n"
-              << "  exit                - exit the program\n";
+    std::cout 
+        << "可用命令:\n"
+        << "1  save                - Save the model\n"
+        << "2  list_faces          - List all faces\n"
+        << "3  list_face's_points  - List points of the specified face\n"
+        << "4  add_face            - Add face\n"
+        << "5  remove_face         - Remove face\n"
+        << "6  modify_face         - Modify face\n"
+        << "7  list_lines          - List all lines\n"
+        << "8  list_line's_points  - List points of the specified line\n"
+        << "9  add_line            - Add line\n"
+        << "10 remove_line         - Removw line\n"
+        << "11 modify_line         - Modify line\n"
+        << "12 statistics          - Show statistics\n"
+        << "13 help                - Show available commands\n"
+        << "14 exit                - exit the program\n";
 }
 
 /*******************************************************************************

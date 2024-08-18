@@ -9,8 +9,8 @@
 using namespace std;
 
 int main() {
-    ConsoleView view;
-    Controller& controller = Controller::GetInstance();
-    view.Run(controller);
+    ConsoleView View;
+    Controller& Controller = Controller::GetInstance();
+    View.Run(Controller);
     return 0;
 }

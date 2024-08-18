@@ -42,44 +42,44 @@ Created by 朱昊东 on 2024/7/26
 【更改记录】 无
 *******************************************************************************/
 void ObjImporter::Load(std::ifstream &file, Model3D& model) const {
-    std::vector<std::shared_ptr<Point3D>> points;
+    std::vector<std::shared_ptr<Point3D>> Points;
     while (!file.eof()) {
-        std::string line;
-        std::getline(file, line);
-        if (line.length() == 0) continue;
-        std::istringstream stream(line);
-        char kind;
-        stream >> kind;
-        switch (kind) {
-            case '#': {
+        std::string LineContent;
+        std::getline(file, LineContent);
+        if (LineContent.length() == 0) continue;
+        std::istringstream Stream(LineContent);
+        char Kind;
+        Stream >> Kind;
+        switch (Kind) {
+            case '#' : {
                 continue;
             }
-            case 'g': {
-                stream.get();
-                std::string name;
-                std::getline(stream, name);
-                model.SetName(name);
+            case 'g' : {
+                Stream.get();
+                std::string Name;
+                std::getline(Stream, Name);
+                model.SetName(Name);
                 break;
             }
-            case 'v': {
-                double coords[3] = {0};
-                stream >> coords[0] >> coords[1] >> coords[2];
-                points.push_back(std::shared_ptr<Point3D>(new Point3D(coords)));
+            case 'v' : {
+                double Coords[3] = {0};
+                Stream >> Coords[0] >> Coords[1] >> Coords[2];
+                Points.push_back(std::shared_ptr<Point3D>(new Point3D(Coords)));
                 break;
             }
-            case 'l': {
-                int indices[2] = {0};
-                stream >> indices[0] >> indices[1];
-                model.AddLineUnchecked(Line3D(points[indices[0]-1], points[indices[1]-1]));
+            case 'l' : {
+                int Indices[2] = {0};
+                Stream >> Indices[0] >> Indices[1];
+                model.AddLineUnchecked(Line3D(Points[Indices[0]-1], Points[Indices[1]-1]));
                 break;
             }
-            case 'f': {
-                int indices[3] = {0};
-                stream >> indices[0] >> indices[1] >> indices[2];
-                model.AddFaceUnchecked(Face3D(points[indices[0]-1], points[indices[1]-1], points[indices[2]-1]));
+            case 'f' : {
+                int Indices[3] = {0};
+                Stream >> Indices[0] >> Indices[1] >> Indices[2];
+                model.AddFaceUnchecked(Face3D(Points[Indices[0]-1], Points[Indices[1]-1], Points[Indices[2]-1]));
                 break;
             }
-            default: {
+            default : {
                 throw ExceptionFileFormat();
             }
         }

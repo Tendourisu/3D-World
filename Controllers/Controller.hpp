@@ -26,50 +26,51 @@ using Point3D = Point<3>;
 【接口说明】
     - static Controller& GetInstance()
         获取Controller实例（单例模式）
-    - Result LoadModel(std::string path)
+    - Result LoadModel(std::string Path)
         加载模型
-    - Result SaveModel(std::string path) const
+    - Result SaveModel(std::string Path) const
         保存模型
     - const std::vector<std::shared_ptr<Line3D>>& GetLines() const
         获取线集合
     - const std::vector<std::shared_ptr<Face3D>>& GetFaces() const
         获取面集合
-    - Result GetLinePointsById(std::size_t id,
-                        std::vector<std::shared_ptr<Point3D>>* pointsPtr) const
+    - Result GetLinePointsById(std::size_t ID,
+                        std::vector<std::shared_ptr<Point3D>>* PointsPtr) const
         获取线的点集合
-    - Result GetFacePointsById(std::size_t id,
-                        std::vector<std::shared_ptr<Point3D>>* pointsPtr) const
+    - Result GetFacePointsById(std::size_t ID,
+                        std::vector<std::shared_ptr<Point3D>>* PointsPtr) const
         获取面的点集合
-    - Result RemoveLineById(std::size_t id)
+    - Result RemoveLineById(std::size_t ID)
         移除线
-    - Result RemoveFaceById(std::size_t id)
+    - Result RemoveFaceById(std::size_t ID)
         移除面
-    - Result AddLine(double x1, double y1,
-                     double z1, double x2,
-                     double y2, double z2)
+    - Result AddLine(
+        double X1, double Y1, double Z1,
+        double X2, double Y2, double Z2)
         添加线
     - Result AddFace(
-        double x1, double y1, double z1, 
-        double x2, double y2, double z2,
-        double x3, double y3, double z3
-    )
+        double X1, double Y1, double Z1, 
+        double X2, double Y2, double Z2,
+        double X3, double Y3, double Z3)
         添加面
-    - Result ModifyLine(std::size_t id, int pointIndex,
-                        double x, double y, double z)
+    - Result ModifyLine(std::size_t ID, int PointIndex,
+        double X, double Y, double Z)
         修改线
-    - Result ModifyFace(std::size_t id, int pointIndex,
-                        double x, double y, double z)
+    - Result ModifyFace(std::size_t ID, int PointIndex,
+        double X, double Y, double Z)
         修改面
     - Statistics GetStatistics() const
         获取统计信息
  Created by 朱昊东 on 2024/7/27
-【更改记录】 无
+【更改记录】 
+        2024/8/17
+        - 修改了一些缩进问题
 *******************************************************************************/
 class Controller {
     public:
         static Controller& GetInstance();//单例模式
-        Controller(const Controller& other) = delete;//不允许拷贝构造
-        Controller& operator=(const Controller& other) = delete;//不允许拷贝赋值
+        Controller(const Controller& Other) = delete;//不允许拷贝构造
+        Controller& operator=(const Controller& Other) = delete;//不允许拷贝赋值
 
         /***********************************************************************
         【类名】 Result
@@ -133,39 +134,38 @@ class Controller {
             double MinBoxVolume;
         };
         //加载模型
-        Result LoadModel(std::string path);
+        Result LoadModel(std::string Path);
         //保存模型
-        Result SaveModel(std::string path) const;
+        Result SaveModel(std::string Path) const;
         //获取线集合
         const std::vector<std::shared_ptr<Line3D>>& GetLines() const;
         //获取面集合
         const std::vector<std::shared_ptr<Face3D>>& GetFaces() const;
         //获取指定线的点集合
-        Result GetLinePointsById(std::size_t id,
-                    std::vector<std::shared_ptr<Point3D>>* pointsPtr) const;
+        Result GetLinePointsById(std::size_t ID,
+                    std::vector<std::shared_ptr<Point3D>>* PointsPtr) const;
         //获取指定面的点集合
-        Result GetFacePointsById(std::size_t id,
-                    std::vector<std::shared_ptr<Point3D>>* pointsPtr) const;
+        Result GetFacePointsById(std::size_t ID,
+                    std::vector<std::shared_ptr<Point3D>>* PointsPtr) const;
         //移除指定线
-        Result RemoveLineById(std::size_t id);
+        Result RemoveLineById(std::size_t ID);
         //移除指定面
-        Result RemoveFaceById(std::size_t id);
+        Result RemoveFaceById(std::size_t ID);
         //添加线
-        Result AddLine(double x1, double y1,
-                       double z1, double x2, 
-                       double y2, double z2);
+        Result AddLine(
+            double X1, double Y1, double Z1, 
+            double X2, double Y2, double Z2);
         //添加面
         Result AddFace(
-            double x1, double y1, double z1, 
-            double x2, double y2, double z2,
-            double x3, double y3, double z3
-        );
+            double X1, double Y1, double Z1, 
+            double X2, double Y2, double Z2,
+            double X3, double Y3, double Z3);
         //修改线
-        Result ModifyLine(std::size_t id, int pointIndex,
-                          double x, double y, double z);
+        Result ModifyLine(std::size_t ID, int PointIndex,
+            double X, double Y, double Z);
         //修改面
-        Result ModifyFace(std::size_t id, int pointIndex, 
-                          double x, double y, double z);
+        Result ModifyFace(std::size_t ID, int PointIndex, 
+            double X, double Y, double Z);
         //获取统计信息
         Statistics GetStatistics() const;
     private:

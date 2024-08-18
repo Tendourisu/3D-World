@@ -2,8 +2,11 @@
 【文件名】 Errors.hpp
 【功能模块和目的】 定义异常类
  Created by 朱昊东 on 2024/7/24
-【更改记录】 7/27 增添了文件扩展名异常类、文件打开异常类、文件格式异常类、重复点异常类、重复元素异常类
-            7/28 增添了单例模式异常类
+【更改记录】 
+    2024/7/27 
+    - 增添了文件扩展名异常类、文件打开异常类、文件格式异常类、重复点异常类、重复元素异常类
+    2024/7/28 
+    - 增添了单例模式异常类
 *******************************************************************************/
 #ifndef ERRORS_HPP
 #define ERRORS_HPP
@@ -22,7 +25,7 @@ Created by 朱昊东 on 2024/7/24
 class ExceptionIndexOutOfBounds: public std::invalid_argument {
     public:
         ExceptionIndexOutOfBounds(std::size_t index):
-         invalid_argument("Index out of bounds."), m_Index(index) {}
+            invalid_argument("Index out of bounds."), m_Index(index) {}
         const std::size_t& Index { m_Index };
     private:
         std::size_t m_Index;
@@ -40,7 +43,7 @@ Created by 朱昊东 on 2024/7/24
 class ExceptionDowngrade: public std::invalid_argument {
     public:
         ExceptionDowngrade():
-         invalid_argument("Cannot downgrade point dimension.") {}
+            invalid_argument("Cannot downgrade point dimension.") {}
 };
 
 /*******************************************************************************
@@ -55,7 +58,7 @@ Created by 朱昊东 on 2024/7/27
 class ExceptionFileExtension: public std::invalid_argument {
     public:
         ExceptionFileExtension():
-         invalid_argument("Invalid file extension.") {}
+            invalid_argument("Invalid file extension.") {}
 };
 
 /*******************************************************************************
@@ -70,7 +73,7 @@ Created by 朱昊东 on 2024/7/27
 class ExceptionFileOpen: public std::invalid_argument {
     public:
         ExceptionFileOpen():
-         invalid_argument("Cannot open specific file.") {}
+            invalid_argument("Cannot open specific file.") {}
 };
  
  /*******************************************************************************
@@ -85,7 +88,7 @@ Created by 朱昊东 on 2024/7/27
 class ExceptionFileFormat: public std::invalid_argument {
     public:
         ExceptionFileFormat():
-         invalid_argument("File contains invalid format.") {}
+            invalid_argument("File contains invalid format.") {}
 };
 
 /*******************************************************************************
@@ -100,7 +103,7 @@ Created by 朱昊东 on 2024/7/27
 class ExceptionIdenticalPoint: public std::invalid_argument {
     public: 
         ExceptionIdenticalPoint():
-         invalid_argument("Two of provided points are the same.") {}
+            invalid_argument("Two of provided points are the same.") {}
 };
 
 /*******************************************************************************
@@ -115,7 +118,7 @@ Created by 朱昊东 on 2024/7/27
 class ExceptionIdenticalElement: public std::invalid_argument {
     public:
         ExceptionIdenticalElement():
-         invalid_argument("Element coincides with existing ones.") {}
+            invalid_argument("Element coincides with existing ones.") {}
 };
 
 /*******************************************************************************
@@ -130,7 +133,7 @@ Created by 朱昊东 on 2024/7/28
 class ExceptionOnlyOneInstance: public std::invalid_argument {
     public:
         ExceptionOnlyOneInstance():
-         invalid_argument("Only one module is allowed to be created.") {}
+            invalid_argument("Only one module is allowed to be created.") {}
 };
 
 #endif // ERRORS_HPP

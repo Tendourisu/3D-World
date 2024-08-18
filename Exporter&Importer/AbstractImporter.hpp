@@ -22,24 +22,24 @@ using Point3D = Point<3>;
 【功能】 定义抽象类AbstractImporter，提供导入方法Import，并指定虚函数检查扩展名和
 加载模型
 【接口说明】
-    - void Import(std::string path, Model3D& model) const
+    - void Import(std::string Path, Model3D& Model) const
         导入模型
-    - virtual bool CheckExtension(std::string path) const
+    - virtual bool CheckExtension(std::string Path) const
         检查扩展名
-    - virtual void Load(std::ifstream& file, Model3D& model) const
+    - virtual void Load(std::ifstream& File, Model3D& Model) const
         加载模型
  Created by 朱昊东 on 2024/7/27
 【更改记录】 无
 *******************************************************************************/
 class AbstractImporter {
     public:
-        void Import(std::string path, Model3D& model) const;
+        void Import(std::string Path, Model3D& Model) const;
 
     protected:
         //检查扩展名
-        virtual bool CheckExtension(std::string path) const = 0;
+        virtual bool CheckExtension(std::string Path) const = 0;
         //加载模型
-        virtual void Load(std::ifstream& file, Model3D& model) const = 0;
+        virtual void Load(std::ifstream& File, Model3D& Model) const = 0;
 };
 
 #endif // ABSTRACT_IMPORTER_HPP

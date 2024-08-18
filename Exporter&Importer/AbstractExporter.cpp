@@ -11,23 +11,23 @@
 
 /*******************************************************************************
 【函数名称】 Export
-【函数功能】 导出model到path
+【函数功能】 导出Model到Path
 【参数】 
-    - std::string path（输入参数）：字符串，文件路径
-    - const Model3D& model（输入参数）：Model3D对象，三维模型
+    - std::string Path（输入参数）：字符串，文件路径
+    - const Model3D& Model（输入参数）：Model3D对象，三维模型
 【返回值】 无
 Created by 朱昊东 on 2024/7/26
 【更改记录】 无
 *******************************************************************************/
-void AbstractExporter::Export(std::string path, const Model3D& model) const {
-    if (!CheckExtension(path)) {
+void AbstractExporter::Export(std::string Path, const Model3D& Model) const {
+    if (!CheckExtension(Path)) {
         throw ExceptionFileExtension();
     }//检查扩展名
-    std::ofstream file;
-    file.open(path, std::ios::trunc);//打开文件
-    if (!file.is_open()) {
+    std::ofstream File;
+    File.open(Path, std::ios::trunc);//打开文件
+    if (!File.is_open()) {
         throw ExceptionFileOpen();
     }//打开失败
-    Save(file, model);
-    file.close();
+    Save(File, Model);
+    File.close();
 }

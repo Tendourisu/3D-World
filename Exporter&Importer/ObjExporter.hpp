@@ -15,9 +15,9 @@
 【类名】 ObjExporter
 【功能】 ObjExporter类，用于导出模型到.obj文件
 【接口说明】
-    - bool CheckExtension(std::string path) const override
+    - bool CheckExtension(std::string Path) const override
         检查扩展名为.obj
-    - void Save(std::ofstream& file, const Model3D& model) const override
+    - void Save(std::ofstream& File, const Model3D& Model) const override
         保存模型
  Created by 朱昊东 on 2024/7/27
    
@@ -26,9 +26,9 @@
 class ObjExporter: public AbstractExporter {
     protected:
         //检查扩展名
-        bool CheckExtension(std::string path) const override;
-        //保存模型
-        void Save(std::ofstream& file, const Model3D& model) const override;
+        bool CheckExtension(std::string Path) const override;
+        //保存模型s
+        void Save(std::ofstream& File, const Model3D& Model) const override;
 };
 
 #endif // OBJ_EXPORTER_HPP

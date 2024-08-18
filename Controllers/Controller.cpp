@@ -2,7 +2,9 @@
 【文件名】 Controller.cpp
 【功能模块和目的】 实现Controller类，提供对模型的操作
 Created by 朱昊东 on 2024/7/28
-【更改记录】 无
+【更改记录】 
+    2024/8/17
+    - 修改了一些缩进问题
 *******************************************************************************/
 #include <memory>
 #include <string>
@@ -21,23 +23,23 @@ Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
 Controller& Controller::GetInstance() {
-    static Controller instance;
-    return instance;
+    static Controller s_Instance;
+    return s_Instance;
 }
 
 /*******************************************************************************
 【函数名称】 LoadModel
 【函数功能】 加载模型
 【参数】 
-    - std::string path（输入参数）：字符串，文件路径
+    - std::string Path（输入参数）：字符串，文件路径
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
-Controller::Result Controller::LoadModel(std::string path) {
+Controller::Result Controller::LoadModel(std::string Path) {
     ObjImporter importer;
     try {
-        importer.Import(path, m_Model);
+        importer.Import(Path, m_Model);
     }
     catch (ExceptionFileExtension) {
         return Result::R_FILE_EXTENSION_ERROR;
@@ -58,15 +60,15 @@ Controller::Result Controller::LoadModel(std::string path) {
 【函数名称】 SaveModel  
 【函数功能】 保存模型
 【参数】 
-    - std::string path（输入参数）：字符串，文件路径
+    - std::string Path（输入参数）：字符串，文件路径
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
-Controller::Result Controller::SaveModel(std::string path) const {
+Controller::Result Controller::SaveModel(std::string Path) const {
     ObjExporter exporter;
     try {
-        exporter.Export(path, m_Model);
+        exporter.Export(Path, m_Model);
     }
     catch (ExceptionFileExtension) {
         return Result::R_FILE_EXTENSION_ERROR;
@@ -105,19 +107,19 @@ const std::vector<std::shared_ptr<Face3D>>& Controller::GetFaces() const {
 【函数名称】 GwtLinePointsById
 【函数功能】 获取指定线的点
 【参数】 
-    - std::size_t id（输入参数）：size_t，线的ID
+    - std::size_t ID（输入参数）：size_t，线的ID
     - std::vector<std::shared_ptr<Point3D>>* pointsPtr（输出参数）：Point3D智能
     指针的动态数组
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
-Controller::Result Controller::GetLinePointsById(std::size_t id,
-                    std::vector<std::shared_ptr<Point3D>>* pointsPtr) const {
-    if (id == 0 || id > m_Model.Lines.size()) {
+Controller::Result Controller::GetLinePointsById(std::size_t ID,
+                    std::vector<std::shared_ptr<Point3D>>* PointsPtr) const {
+    if (ID == 0 || ID > m_Model.Lines.size()) {
         return Result::R_ID_OUT_OF_BOUNDS;
     }
-    *pointsPtr = m_Model.Lines[id-1]->GetPointsVector();
+    *PointsPtr = m_Model.Lines[ID-1]->GetPointsVector();
     return Result::R_OK;
 }
 
@@ -125,19 +127,19 @@ Controller::Result Controller::GetLinePointsById(std::size_t id,
 【函数名称】 GwtFacePointsById
 【函数功能】 获取指定面的点
 【参数】 
-    - id（输入参数）：size_t，线的ID
+    - std::size_t ID（输入参数）：线的ID
     - std::vector<std::shared_ptr<Point3D>>* pointsPtr（输出参数）：Point3D智能
     指针的动态数组
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
-Controller::Result Controller::GetFacePointsById(std::size_t id,
-                    std::vector<std::shared_ptr<Point3D>>* pointsPtr) const {
-    if (id == 0 || id > m_Model.Faces.size()) {
+Controller::Result Controller::GetFacePointsById(std::size_t ID,
+    std::vector<std::shared_ptr<Point3D>>* PointsPtr) const {
+    if (ID == 0 || ID > m_Model.Faces.size()) {
         return Result::R_ID_OUT_OF_BOUNDS;
     }
-    *pointsPtr = m_Model.Faces[id-1]->GetPointsVector();
+    *PointsPtr = m_Model.Faces[ID-1]->GetPointsVector();
     return Result::R_OK;
 }
 
@@ -145,15 +147,15 @@ Controller::Result Controller::GetFacePointsById(std::size_t id,
 【函数名称】 RemoveLineById
 【函数功能】 删除指定的线
 【参数】 
-    - std::size_t id（输入参数）：线的ID
+    - std::size_t ID（输入参数）：线的ID
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
 
-Controller::Result Controller::RemoveLineById(std::size_t id) {
-    if (m_Model.RemoveLine(id - 1)) {
-        //m_LineStates.erase(m_LineStates.begin() + id - 1);
+Controller::Result Controller::RemoveLineById(std::size_t ID) {
+    if (m_Model.RemoveLine(ID - 1)) {
+        //m_LineStates.erase(m_LineStates.begin() + ID - 1);
         return Result::R_OK;
     }
     else {
@@ -170,9 +172,9 @@ Controller::Result Controller::RemoveLineById(std::size_t id) {
 Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
-Controller::Result Controller::RemoveFaceById(std::size_t id) {
-    if (m_Model.RemoveFace(id - 1)) {
-        //m_FaceStates.erase(m_FaceStates.begin() + id - 1);
+Controller::Result Controller::RemoveFaceById(std::size_t ID) {
+    if (m_Model.RemoveFace(ID - 1)) {
+        //m_FaceStates.erase(m_FaceStates.begin() + ID - 1);
         return Result::R_OK;
     }
     else {
@@ -184,22 +186,24 @@ Controller::Result Controller::RemoveFaceById(std::size_t id) {
 【函数名称】 AddLine
 【函数功能】 添加线
 【参数】 
-    - double x1（输入参数）：double，第一个点的x坐标
-    - double y1（输入参数）：double，第一个点的y坐标
-    - double z1（输入参数）：double，第一个点的z坐标
-    - double x2（输入参数）：double，第二个点的x坐标
-    - double y2（输入参数）：double，第二个点的y坐标
-    - double z2（输入参数）：double，第二个点的z坐标
+    - double X1（输入参数）：double，第一个点的x坐标
+    - double Y1（输入参数）：double，第一个点的y坐标
+    - double Z1（输入参数）：double，第一个点的z坐标
+    - double X2（输入参数）：double，第二个点的x坐标
+    - double Y2（输入参数）：double，第二个点的y坐标
+    - double Z2（输入参数）：double，第二个点的z坐标
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
-【更改记录】 无
+【更改记录】 
+    2024/8/17
+    - 修改了一些缩进问题
 *******************************************************************************/
 
-Controller::Result Controller::AddLine(double x1, double y1,
-                                       double z1, double x2,
-                                       double y2, double z2) {
-    double firstCoords[] = { x1, y1, z1 };
-    double secondCoords[] = { x2, y2, z2 };
+Controller::Result Controller::AddLine(
+    double X1, double Y1, double Z1,
+    double X2, double Y2, double Z2) {
+    double firstCoords[] = { X1, Y1, Z1 };
+    double secondCoords[] = { X2, Y2, Z2 };
     Point3D first(firstCoords);
     Point3D second(secondCoords);
     try {
@@ -219,28 +223,29 @@ Controller::Result Controller::AddLine(double x1, double y1,
 【函数名称】 AddFace
 【函数功能】 添加面
 【参数】 
-    - double x1（输入参数）：double，第一个点的x坐标
-    - double y1（输入参数）：double，第一个点的y坐标
-    - double z1（输入参数）：double，第一个点的z坐标
-    - double x2（输入参数）：double，第二个点的x坐标
-    - double y2（输入参数）：double，第二个点的y坐标
-    - double z2（输入参数）：double，第二个点的z坐标
-    - double x3（输入参数）：double，第三个点的x坐标
-    - double y3（输入参数）：double，第三个点的y坐标
-    - double z3（输入参数）：double，第三个点的z坐标
+    - double X1（输入参数）：double，第一个点的x坐标
+    - double Y1（输入参数）：double，第一个点的y坐标
+    - double Z1（输入参数）：double，第一个点的z坐标
+    - double X2（输入参数）：double，第二个点的x坐标
+    - double Y2（输入参数）：double，第二个点的y坐标
+    - double Z2（输入参数）：double，第二个点的z坐标
+    - double X3（输入参数）：double，第三个点的x坐标
+    - double Y3（输入参数）：double，第三个点的y坐标
+    - double Z3（输入参数）：double，第三个点的z坐标
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
-【更改记录】 无
+【更改记录】 
+    2024/8/17
+    - 修改了一些缩进问题
 *******************************************************************************/
 
 Controller::Result Controller::AddFace(
-    double x1, double y1, double z1, 
-    double x2, double y2, double z2,
-    double x3, double y3, double z3
-) {
-    double firstCoords[] = { x1, y1, z1 };
-    double secondCoords[] = { x2, y2, z2 };
-    double thirdCoords[] = { x3, y3, z3 };
+    double X1, double Y1, double Z1, 
+    double X2, double Y2, double Z2,
+    double X3, double Y3, double Z3) {
+    double firstCoords[] = { X1, Y1, Z1 };
+    double secondCoords[] = { X2, Y2, Z2 };
+    double thirdCoords[] = { X3, Y3, Z3 };
     Point3D first(firstCoords);
     Point3D second(secondCoords);
     Point3D third(thirdCoords);
@@ -261,30 +266,30 @@ Controller::Result Controller::AddFace(
 【函数名称】 ModifyLine
 【函数功能】 修改线
 【参数】 
-    - std::size_t id（输入参数）：size_t，线的ID
-    - int pointIndex（输入参数）：int，点的索引
-    - double x（输入参数）：double，点的x坐标
-    - double y（输入参数）：double，点的y坐标
-    - double z（输入参数）：double，点的z坐标
+    - std::size_t ID（输入参数）：size_t，线的ID
+    - int PointIndex（输入参数）：int，点的索引
+    - double X（输入参数）：double，点的x坐标
+    - double Y（输入参数）：double，点的y坐标
+    - double Z（输入参数）：double，点的z坐标
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
-Controller::Result Controller::ModifyLine(std::size_t id, int pointIndex,
-                                          double x, double y, double z) {
+Controller::Result Controller::ModifyLine(std::size_t ID, int PointIndex,
+                                          double X, double Y, double Z) {
     // check here for invalid access
     // as we cannot distinguish which index overflows
-    if (id == 0 || id > m_Model.Lines.size()) {
+    if (ID == 0 || ID > m_Model.Lines.size()) {
         return Result::R_ID_OUT_OF_BOUNDS;
     }
-    double coords[] = { x, y, z };
+    double Coords[] = { X, Y, Z };
     try {
-        m_Model.ModifyLine(id - 1, pointIndex - 1, Point3D(coords));
+        m_Model.ModifyLine(ID - 1, PointIndex - 1, Point3D(Coords));
     }
     catch (ExceptionIndexOutOfBounds) {
         return Result::R_POINT_INDEX_ERROR;
     }
-    //m_LineStates[id - 1] = State::S_MODIFIED;
+    //m_LineStates[ID - 1] = State::S_MODIFIED;
     return Result::R_OK;
 }
 
@@ -292,29 +297,29 @@ Controller::Result Controller::ModifyLine(std::size_t id, int pointIndex,
 【函数名称】 ModifyFace
 【函数功能】 修改面
 【参数】 
-    - std::size_t id（输入参数）：size_t，面的ID
-    - int pointIndex（输入参数）：int，点的索引
-    - double x（输入参数）：double，点的x坐标
-    - double y（输入参数）：double，点的y坐标
-    - double z（输入参数）：double，点的z坐标
+    - std::size_t ID（输入参数）：size_t，面的ID
+    - int PointIndex（输入参数）：int，点的索引
+    - double X（输入参数）：double，点的x坐标
+    - double Y（输入参数）：double，点的y坐标
+    - double Z（输入参数）：double，点的z坐标
 【返回值】 Result：操作结果
 Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
-Controller::Result Controller::ModifyFace(std::size_t id, int pointIndex,
-                                          double x, double y, double z) {
+Controller::Result Controller::ModifyFace(std::size_t ID, int PointIndex,
+                                          double X, double Y, double Z) {
     // same as Controller::ModifyLine
-    if (id == 0 || id > m_Model.Faces.size()) {
+    if (ID == 0 || ID > m_Model.Faces.size()) {
         return Result::R_ID_OUT_OF_BOUNDS;
     }
-    double coords[] = { x, y, z };
+    double Coords[] = { X, Y, Z };
     try {
-        m_Model.ModifyFace(id - 1, pointIndex - 1, Point3D(coords));
+        m_Model.ModifyFace(ID - 1, PointIndex - 1, Point3D(Coords));
     }
     catch (ExceptionIndexOutOfBounds) {
         return Result::R_POINT_INDEX_ERROR;
     }
-    //m_FaceStates[id - 1] = State::S_MODIFIED;
+    //m_FaceStates[ID - 1] = State::S_MODIFIED;
     return Result::R_OK;
 }
 
@@ -327,7 +332,7 @@ Created by 朱昊东 on 2024/7/28
 【更改记录】 无
 *******************************************************************************/
 Controller::Statistics Controller::GetStatistics() const {
-    Statistics stats {
+    Statistics Stats {
         .TotalPointCount = m_Model.Lines.size() * 2 + m_Model.Faces.size() * 3,
         .TotalLineCount = m_Model.Lines.size(),
         .TotalLineLength = 0,
@@ -336,10 +341,10 @@ Controller::Statistics Controller::GetStatistics() const {
         .MinBoxVolume = m_Model.GetMinBoxVolume()
     };
     for (auto line: m_Model.Lines) {
-        stats.TotalLineLength += line->GetLength();
+        Stats.TotalLineLength += line->GetLength();
     }
     for (auto face: m_Model.Faces) {
-        stats.TotalFaceArea += face->GetArea();
+        Stats.TotalFaceArea += face->GetArea();
     }
-    return stats;
+    return Stats;
 }

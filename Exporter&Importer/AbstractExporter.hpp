@@ -22,11 +22,11 @@ using Point3D = Point<3>;
 【功能】 定义抽象类AbstractExporter，提供导出方法Export，并指定虚函数检查扩展名和
 保存模型
 【接口说明】
-    - void Export(std::string path, const Model3D& model) const
+    - void Export(std::string Path, const Model3D& Model) const
         导出模型
-    - virtual bool CheckExtension(std::string path) const
+    - virtual bool CheckExtension(std::string Path) const
         检查扩展名
-    - virtual void Save(std::ofstream& file, const Model3D& model) const
+    - virtual void Save(std::ofstream& File, const Model3D& Model) const
         保存模型
    
 【更改记录】 无
@@ -34,13 +34,13 @@ using Point3D = Point<3>;
 class AbstractExporter {
     public:
         //导出model到path
-        void Export(std::string path, const Model3D& model) const;
+        void Export(std::string Path, const Model3D& Model) const;
     
     protected:
         //检查扩展名
-        virtual bool CheckExtension(std::string path) const = 0;
+        virtual bool CheckExtension(std::string Path) const = 0;
         //保存模型
-        virtual void Save(std::ofstream& file, const Model3D& model) const = 0;
+        virtual void Save(std::ofstream& File, const Model3D& Model) const = 0;
 };
 
 #endif // ABSTRACT_EXPORTER_HPP
